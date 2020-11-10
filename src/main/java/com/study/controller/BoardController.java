@@ -40,19 +40,19 @@ public class BoardController {
     public String boardList(@PathVariable int boardNo, Model model, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
 
-        Board_Managament board_managament = boardManagementService.getBoard_Management(boardNo);
+        Board_Management board_management = boardManagementService.getBoard_Management(boardNo);
 
-        String R = board_managament.getR(); // A: 모두 , P: 교수님 , S: 학생
-        String C = board_managament.getC();
+        String R = board_management.getR(); // A: 모두 , P: 교수님 , S: 학생
+        String C = board_management.getC();
 
-        model.addAttribute("boardNo", board_managament.getBoardNo());
-        model.addAttribute("boardNm", board_managament.getBoardNm());
+        model.addAttribute("boardNo", board_management.getBoardNo());
+        model.addAttribute("boardNm", board_management.getBoardNm());
 
         //게시판 속성이 수업게시판일 경우
-        if (board_managament.getBoardKind().equals(CLASSBOARD)) {
+        if (board_management.getBoardKind().equals(CLASSBOARD)) {
             //로그인 했을 때
             if (user != null) {
-                model.addAttribute("classNm", board_managament.getFk_classNm());
+                model.addAttribute("classNm", board_management.getFk_classNm());
                 //관리자
                 if (user.isOperator()) {
                     model.addAttribute("list", boardService.boardListService(boardNo));
@@ -124,7 +124,7 @@ public class BoardController {
         }
 
         //게시판 속성이 공통게시판일 경우
-        else if (board_managament.getBoardKind().equals(COMMONBOARD)) {
+        else if (board_management.getBoardKind().equals(COMMONBOARD)) {
             model.addAttribute("list", boardService.boardListService(boardNo));
 
             // 비회원 시 공통게시판 create 불가능
@@ -166,7 +166,7 @@ public class BoardController {
             }
         }
         //게시판 속성이 그룹게시판일 경우
-        else if(board_managament.getBoardKind().equals(GROUPBARD)){
+        else if(board_management.getBoardKind().equals(GROUPBARD)){
         }
 
         model.addAttribute("list", boardService.boardListService(boardNo));
@@ -188,15 +188,15 @@ public class BoardController {
             return "redirect";
         }
 
-        Board_Managament board_managament = boardManagementService.getBoard_Management(board.getFk_boardNo());
-        String D = board_managament.getD();
+        Board_Management board_management = boardManagementService.getBoard_Management(board.getFk_boardNo());
+        String D = board_management.getD();
 
         model.addAttribute("D",false);
         model.addAttribute("U",false);
 
         // 삭제 권한 부여
         // 게시판의 속성이 공통게시판일 경우
-        if(board_managament.getBoardKind().equals(COMMONBOARD)){
+        if(board_management.getBoardKind().equals(COMMONBOARD)){
 
             model.addAttribute("R",true);
             if(user != null){
@@ -235,7 +235,7 @@ public class BoardController {
             }
         }
         // 게시판의 속성이 과목게시판일 경우
-        else if(board_managament.getBoardKind().equals(CLASSBOARD)){
+        else if(board_management.getBoardKind().equals(CLASSBOARD)){
             if(user != null) {
                 int userId = user.getUserId();
                 int classId = board.getFk_classId();
@@ -286,7 +286,7 @@ public class BoardController {
             }
         }
         // 게시판의 속성이 그룹게시판일 경우
-        else if(board_managament.getBoardKind().equals(GROUPBARD)){
+        else if(board_management.getBoardKind().equals(GROUPBARD)){
         }
 
         // 작성자 본인일 경우 OR 관리자일 경우
@@ -329,10 +329,10 @@ public class BoardController {
                                   @RequestPart MultipartFile[] files,
                                   @RequestPart MultipartFile[] imgfiles) throws Exception {
         Users user = (Users) session.getAttribute("user");
-        Board_Managament board_managament = boardManagementService.getBoard_Management(boardNo);
-        String C = board_managament.getC();
+        Board_Management board_management = boardManagementService.getBoard_Management(boardNo);
+        String C = board_management.getC();
         Boolean permission = false;
-        System.out.println(board_managament.getFk_classId());
+        System.out.println(board_management.getFk_classId());
 
 
         if (C.equals(STUDENT)) {
@@ -360,7 +360,7 @@ public class BoardController {
             board.setFk_postNick(user.getNick());
             board.setFk_postUserId(user.getUserId());
             board.setFk_boardNo(boardNo);
-            board.setFk_classId(board_managament.getFk_classId());
+            board.setFk_classId(board_management.getFk_classId());
 
             if (!files[0].isEmpty()) {
                 board.setFile(true);

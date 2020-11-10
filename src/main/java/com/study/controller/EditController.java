@@ -1,6 +1,6 @@
 package com.study.controller;
 
-import com.study.dto.Board_Managament;
+import com.study.dto.Board_Management;
 import com.study.dto.Users;
 import com.study.service.BoardManagementService;
 import com.study.service.SignupService;
@@ -26,7 +26,7 @@ public class EditController {
 
     @RequestMapping("/edit")
     public String edit(Model model, HttpSession session){
-        for (Board_Managament b : boardManagementService.loadCommonMenuList()){
+        for (Board_Management b : boardManagementService.loadCommonMenuList()){
             System.out.println(b.getBoardNm());
         }
         model.addAttribute("commonList",boardManagementService.loadCommonMenuList());
@@ -49,22 +49,22 @@ public class EditController {
             return "redirect";
         }
         if(user.isOperator()) {
-            Board_Managament board_managament = new Board_Managament();
-            board_managament.setBoardNm(boardNm);
-            board_managament.setCategory(true);
-            board_managament.setBoardKind("commonBoard");
+            Board_Management board_management = new Board_Management();
+            board_management.setBoardNm(boardNm);
+            board_management.setCategory(true);
+            board_management.setBoardKind("commonBoard");
             System.out.println(isCategory);
             if (isCategory==false) {
-                board_managament.setCategory(false);
+                board_management.setCategory(false);
                 int c = Integer.parseInt(categoryNo);
                 if(c != 0){
-                    board_managament.setFk_parent(c);
+                    board_management.setFk_parent(c);
                 }
-                board_managament.setC(C);
-                board_managament.setR(R);
-                board_managament.setD(D);
+                board_management.setC(C);
+                board_management.setR(R);
+                board_management.setD(D);
             }
-            boardManagementService.insertCommonBoardService(board_managament);
+            boardManagementService.insertCommonBoardService(board_management);
             return "redirect:/home";
         }else {
             model.addAttribute("msg","관리자만 접근 가능합니다.");

@@ -1,6 +1,6 @@
 package com.study.controller;
 
-import com.study.dto.Board_Managament;
+import com.study.dto.Board_Management;
 import com.study.dto.Myclass;
 import com.study.dto.Users;
 import com.study.service.*;
@@ -23,10 +23,10 @@ public class MenuRestController {
     @Autowired
     ClassService classService;
 
-    List<Board_Managament> boardList;
-    List<Board_Managament> gradeList;
-    List<Board_Managament> commonList;
-    List<Board_Managament> otherList;
+    List<Board_Management> boardList;
+    List<Board_Management> gradeList;
+    List<Board_Management> commonList;
+    List<Board_Management> otherList;
     List<Myclass> myclassList;
     Users user;
 
@@ -36,7 +36,7 @@ public class MenuRestController {
 
     @RequestMapping("/grademenu")
     @PostMapping
-    public List<Board_Managament> grademenu() {
+    public List<Board_Management> grademenu() {
         gradeList = boardManagementService.loadGradeList();
         if (gradeList != null) {
             return gradeList;
@@ -46,7 +46,7 @@ public class MenuRestController {
 
     @RequestMapping("/commonmenu")
     @PostMapping
-    public List<Board_Managament> commonMenu() {
+    public List<Board_Management> commonMenu() {
         commonList = boardManagementService.loadCommonMenuList();
         if (commonList != null) {
             return commonList;
@@ -57,7 +57,7 @@ public class MenuRestController {
 
     @RequestMapping("/classmenu")
     @PostMapping
-    public List<Board_Managament> classmenu(HttpSession session) throws Exception {
+    public List<Board_Management> classmenu(HttpSession session) throws Exception {
 
         user = (Users) session.getAttribute("user");
         if(user!=null) {
@@ -110,7 +110,7 @@ public class MenuRestController {
     // 현재 삭제한 기능
     @RequestMapping("/othermenu")
     @PostMapping
-    public List<Board_Managament> otherMenu() {
+    public List<Board_Management> otherMenu() {
         otherList = boardManagementService.loadOtherMenuList();
         if (otherList != null) {
             return otherList;

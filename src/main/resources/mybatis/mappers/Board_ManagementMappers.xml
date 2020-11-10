@@ -17,7 +17,7 @@
     boardKind = "gradeBoard"
     </select>
     
-    <select id="loadCommonMenuList" resultType="Board_Managament">
+    <select id="loadCommonMenuList" resultType="Board_Management">
     SELECT
     *
     FROM
@@ -27,7 +27,7 @@
     ORDER BY boardIndex
     </select>
     
-    <select id="loadOtherMenuList" resultType="Board_Managament">
+    <select id="loadOtherMenuList" resultType="Board_Management">
     SELECT
     *
     FROM
@@ -36,7 +36,7 @@
     boardKind = "other"
     </select>
 
-    <select id="loadClassMenuList" resultType="Board_Managament">
+    <select id="loadClassMenuList" resultType="Board_Management">
     SELECT
     *
     FROM
@@ -53,7 +53,7 @@
     boardNo=#{boardNo}
     </select>
 
-    <select id="getBoard_Management"  parameterType="int" resultType="Board_Managament">
+    <select id="getBoard_Management"  parameterType="int" resultType="Board_Management">
     SELECT
     *
     FROM
@@ -61,12 +61,12 @@
     WHERE boardNo = #{boardNo}
     </select>
 
-    <insert id="insertClassBoardList" parameterType="Board_Managament" >
+    <insert id="insertClassBoardList" parameterType="Board_Management" >
         INSERT INTO board_management (boardNm,C,R,D,fk_classId,fk_classNm,boardKind)
         values (#{boardNm},#{C},#{R},#{D},#{fk_classId},#{fk_classNm},#{boardKind})
     </insert>
 
-    <insert id="insertCommonBoard" parameterType="Board_Managament">
+    <insert id="insertCommonBoard" parameterType="Board_Management">
         <if test="fk_parent == 0">
         INSERT INTO board_management (boardNm,C,R,D, isCategory, boardKind)
         values (#{boardNm},#{C},#{R},#{D},#{isCategory},#{boardKind})

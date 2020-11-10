@@ -1,7 +1,7 @@
 package com.study.service;
 
 import com.study.dao.Board_ManagementMapper;
-import com.study.dto.Board_Managament;
+import com.study.dto.Board_Management;
 import com.study.dto.Myclass;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +18,15 @@ public class BoardManagementServiceImpl implements com.study.service.BoardManage
 	// CommonMenuList 는 DB board_management 의 boardNo 가 1000 을 초과하는 메뉴.
 	// 나중에 Commonlist및 다른 리스트를 나누는 테이블을 만드는게 좋아보임.
 	
-	public List<Board_Managament> loadGradeList() { return board_ManagementMapper.loadGradeList();}
-	public List<Board_Managament> loadCommonMenuList(){
+	public List<Board_Management> loadGradeList() { return board_ManagementMapper.loadGradeList();}
+	public List<Board_Management> loadCommonMenuList(){
 		return board_ManagementMapper.loadCommonMenuList();
 	}
-	public List<Board_Managament> loadOtherMenuList(){
+	public List<Board_Management> loadOtherMenuList(){
 		return board_ManagementMapper.loadOtherMenuList();
 	}
-	public List<Board_Managament> loadClassMenuList() {return  board_ManagementMapper.loadClassMenuList();}
-	public List<Board_Managament> loadAllMenuList() {return board_ManagementMapper.loadAllList();}
+	public List<Board_Management> loadClassMenuList() {return  board_ManagementMapper.loadClassMenuList();}
+	public List<Board_Management> loadAllMenuList() {return board_ManagementMapper.loadAllList();}
 	public boolean isMyclssBoard(int boardNo, List<Myclass> myclassList){
 		int fk_classId;
 		try {
@@ -43,20 +43,20 @@ public class BoardManagementServiceImpl implements com.study.service.BoardManage
 		return false;
 	}
 
-	public Board_Managament getBoard_Management(int boardNo){
+	public Board_Management getBoard_Management(int boardNo){
 		return board_ManagementMapper.getBoard_Management(boardNo);
 	}
 
 	@Override
-	public void insertClassBoardList(List<Board_Managament> board_managamentList) {
-		if(board_managamentList.size() != 0) {
-			for (Board_Managament b : board_managamentList) {
+	public void insertClassBoardList(List<Board_Management> board_managementList) {
+		if(board_managementList.size() != 0) {
+			for (Board_Management b : board_managementList) {
 				board_ManagementMapper.insertClassBoardList(b);
 			}
 		}
 	}
 
-	public void insertCommonBoardService(Board_Managament board_managament){
-		board_ManagementMapper.insertCommonBoard(board_managament);
+	public void insertCommonBoardService(Board_Management board_management){
+		board_ManagementMapper.insertCommonBoard(board_management);
 	}
 }

@@ -7,7 +7,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
-import com.study.dto.Board_Managament;
+import com.study.dto.Board_Management;
 import com.study.dto.Class;
 import com.study.dto.Myclass;
 import com.study.dto.Users;
@@ -101,24 +101,24 @@ public class ClassController {
 		classService.createClass((com.study.dto.Class)newClass);
 		int classId = newClass.getClassId();
 		System.out.println("클래스 아이디 : "+classId);
-		List<Board_Managament> newBoardList= new ArrayList<>();
+		List<Board_Management> newBoardList= new ArrayList<>();
 
 		if(proBoard != null && !proBoard.equals("")){
-			Board_Managament newBoard = new Board_Managament(proBoard);
+			Board_Management newBoard = new Board_Management(proBoard);
 			newBoard.setFk_classId(classId);
 			newBoard.setFk_classNm(classNm);
 			newBoardList.add(newBoard);
 			System.out.println("교수님게시판 생성");
 		}
 		if(stuBoard !=null && !stuBoard.equals("")){
-			Board_Managament newBoard = new Board_Managament(stuBoard);
+			Board_Management newBoard = new Board_Management(stuBoard);
 			newBoard.setFk_classId(classId);
 			newBoard.setFk_classNm(classNm);
 			newBoardList.add(newBoard);
 			System.out.println("학생게시판 생성");
 		}
 		if(submitBoard != null && !submitBoard.equals("")){
-			Board_Managament newBoard = new Board_Managament(submitBoard);
+			Board_Management newBoard = new Board_Management(submitBoard);
 			newBoard.setFk_classId(classId);
 			newBoard.setFk_classNm(classNm);
 			newBoardList.add(newBoard);
@@ -130,7 +130,7 @@ public class ClassController {
 				JSONParser parser = new JSONParser();
 				Object obj = parser.parse(boardList[i]);
 				JSONObject jsonObject = (JSONObject) obj;
-				Board_Managament newBoard = new Board_Managament();
+				Board_Management newBoard = new Board_Management();
 
 				newBoard.setBoardNm(String.valueOf(jsonObject.get("boardNm")));
 				newBoard.setC(String.valueOf(jsonObject.get("C")));

@@ -1,7 +1,7 @@
 package com.study.dto;
 
 
-public class Board_Managament {
+public class Board_Management {
     int boardNo;
     String boardNm;
 
@@ -24,10 +24,10 @@ public class Board_Managament {
         this.boardIndex = boardIndex;
     }
 
-    public Board_Managament() {
+    public Board_Management() {
     }
 
-    public Board_Managament(String kind) {
+    public Board_Management(String kind) {
         if (kind.equals("proBoard")) {
             this.boardNm = "교수님 게시판";
             this.C = "P";
