@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+
+<head>
+<!-- Required meta tags -->
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+    <meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="assets/vendor/bootstrap/css/bootstrap.min.css">
+<link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+<link rel="stylesheet" href="assets/libs/css/style.css">
+<link rel="stylesheet"
+	href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+<link rel="stylesheet"
+	href="assets/vendor/charts/chartist-bundle/chartist.css">
+<link rel="stylesheet"
+	href="assets/vendor/charts/morris-bundle/morris.css">
+<link rel="stylesheet"
+	href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+<link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
+<link rel="stylesheet"
+	href="assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+
+<title>Concept - Bootstrap 4 Admin Dashboard Template</title>
+</head>
+
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<!-- main wrapper -->
+	<div class="dashboard-main-wrapper">
+		<!-- navbar -->
+		<div id="header"></div>
+		<!-- end navbar -->
+		<!-- left sidebar -->
+		<div id="menu"></div>
+		<!-- end left sidebar -->
+		<!-- wrapper  -->
+		<div class="dashboard-wrapper">
+			<div class="dashboard-ecommerce">
+				<div class="container-fluid dashboard-content ">
+					<!-- pageheader  -->
+					<div class="row">
+						<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+							<div class="page-header">
+								<h1 class="pageheader-title">${user.name}님 안녕하세요
+									<div align="right">
+										<a href="https://www.skuniv.ac.kr/main" class="btn btn-primary">서경 홈페이지</a>
+										<a href="https://cs.skuniv.ac.kr/" class="btn btn-primary">학과 홈페이지</a>
+									</div>
+								</h1>
+								<hr color="black">
+								<div class="page-breadcrumb"></div>
+							</div>
+						</div>
+					</div>
+
+
+					<!--
+					<div class="row">
+						<div class="col-xl-10">
+							<div class="row">
+								<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+									<div class="page-header">
+										<h2 class="pageheader-title">내 수업 목록 </h2>
+										<div class="page-breadcrumb">
+											<nav aria-label="breadcrumb">
+												<ol class="breadcrumb">
+												</ol>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+							<br>
+							<div class="row">
+								<c:forEach var="ele" items="${myClassList}">
+									<c:if test="${ele.confirm==true}">
+										<div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12">
+											<div class="card">
+												<div class="card-body">
+													<label class="custom-control custom-checkbox">
+														<div class="d-inline-block">
+															<h5 >${ele.myclassNm}</h5>
+															</h5>
+															<h3>${ele.professorNm}</h3>
+														</div>
+													</label>
+												</div>
+											</div>
+										</div>
+									</c:if>
+								</c:forEach>
+							</div>
+						</div>
+					</div>
+-->
+
+
+					<!--   ##############################  수업별 게시판 end  #########W##############################  -->
+					<hr color="black">
+
+					<!-- 공지 게시판 -->
+					<div class= "row">
+						<!-- end pageheader  -->
+							<div class="col-xl 6 col-lg-6 col-md-12 col-sm-12 col-12">
+								<div class="card">
+									<h5 class="card-header"><b>${boardNm}</b><a href="/board/${list[0].fk_boardNo}" style="float:right">더보기</a></h5>
+									<div class="card-body">
+										<table class="table table-hover">
+											<colgroup>
+												<col width="10%"/>
+												<col width="*"/>
+												<col width="10%"/>
+												<col width="10%"/>
+												<col width="10%"/>
+											</colgroup>
+											<thead>
+											<tr>
+												<th scope="col">번호</th>
+												<th scope="col">제목</th>
+												<th scope="col">작성자</th>
+												<th scope="col">작성일</th>
+												<th scope="col">조회수</th>
+											</tr>
+											</thead>
+											<tbody>
+
+                                            <c:set var="l" value="${fn:length(list)}" />
+											<c:forEach var="element" items="${list}" varStatus="status">
+												<tr onclick="location.href='/detail/${element.postNo}'" style="cursor:pointer;">
+													<th scope="col"><font size="1">${l - status.index}</font></th>
+													<th scope="col">${element.postTitle}  &nbsp; &nbsp; &nbsp;<c:if test="${element.img == true}"><span class="badge badge-pill badge-success "><i class="fas fa-image"></i></span>  </c:if>
+														<c:if test="${element.file == true}"><span class="badge badge-pill badge-primary ">첨부파일</span> </c:if><c:if test="${element.commentCount >0}"><span class="badge badge-success">${element.commentCount}</span></c:if></th>
+													<th scope="col" >${element.fk_postNick}</th>
+													<th scope="col"><font size="1" > ${element.postDate} </font></th>
+													<th scope="col"><font size="1">${element.hits}</font></th>
+												</tr>
+											</c:forEach>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+					</div>
+
+						<div class="col-xl-6 col-lg-6 col-md-6 col-sm-12 col-12">
+							<div class="text-md-right footer-links d-none d-sm-block">
+								<a href="javascript: void(0);">About</a> <a
+									href="javascript: void(0);">Support</a> <a
+									href="javascript: void(0);">Contact Us</a>
+							</div>
+						</div>
+				</div>
+			</div>
+			<!-- end footer -->
+		</div>
+		<!-- end wrapper  -->
+	</div>
+	<!-- end main wrapper  -->
+	<!-- Optional JavaScript -->
+	<!-- jquery 3.3.1 -->
+	<script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+	<!-- bootstap bundle js -->
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+	<!-- slimscroll js -->
+	<script src="assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+	<!-- main js -->
+	<script src="assets/libs/js/main-js.js"></script>
+	<!-- chart chartist js -->
+	<script src="assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+	<!-- sparkline js -->
+	<script src="assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+	<!-- morris js -->
+	<script src="assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+	<script src="assets/vendor/charts/morris-bundle/morris.js"></script>
+	<!-- chart c3 js -->
+	<script src="assets/vendor/charts/c3charts/c3.min.js"></script>
+	<script src="assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+	<script src="assets/vendor/charts/c3charts/C3chartjs.js"></script>
+	<script src="assets/libs/js/dashboard-ecommerce.js"></script>
+	<script src="assets/libs/js/dashboard-ecommerce.js"></script>
+	<script type="text/javascript">
+	$(document).ready(function(){$("#header").load("/header");});
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function(){$("#menu").load("/menu");});
+	</script>
+</body>
+
+</html>
